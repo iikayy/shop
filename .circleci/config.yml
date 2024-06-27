@@ -1,11 +1,14 @@
-# This config was automatically generated from your source code
-
 version: 2.1
 orbs:
   python: circleci/python@2
+
+executors:
+  python-executor:
+    docker:
+      - image: circleci/python:3.8
+
 jobs:
   test:
-    # Install dependencies and run tests
     docker:
       - image: cimg/base:2021.04
     working_directory: ~/pythonProject/shop
@@ -18,9 +21,12 @@ jobs:
             python -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+            # Run your tests here
+            pytest  # Assuming you are using pytest for testing
 
   deploy:
-    executor: python-executor
+    docker:
+      - image: circleci/python:3.8
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -29,17 +35,17 @@ jobs:
       - run:
           name: Copy deployment script to EC2
           command: |
-            scp -o StrictHostKeyChecking=no ec2-user@13.51.174.31:/home/pythonProject/shop
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ~/python_work/shop/deploy.sh ec2-user@13.51.174.31:/home/ec2-user/shop
       - run:
           name: Run deployment script on EC2
           command: |
-            ssh -o StrictHostKeyChecking=no ec2-user@13.51.174.31 'bash /home/pythonProject/shop/deploy.sh'
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.51.174.31 'bash /home/ec2-user/shop/deploy.sh'
 
-  workflows:
-    version: 2
-    test_and_deploy:
-      jobs:
-        - test
-        - deploy:
-            requires:
-              - test
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
