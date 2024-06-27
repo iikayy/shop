@@ -10,18 +10,20 @@ executors:
 jobs:
   test:
     docker:
-      - image: cimg/base:2021.04
+      - image: circleci/python:3.8
     working_directory: ~/pythonProject/shop
     steps:
-      - checkout:
-          path: ~/shop
+      - checkout
       - run:
-          name: Run tests
+          name: Set up virtual environment and install dependencies
           command: |
             python -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            # Run your tests here
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
             pytest  # Assuming you are using pytest for testing
 
   deploy:
