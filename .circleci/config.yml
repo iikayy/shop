@@ -37,7 +37,7 @@ jobs:
       - run:
           name: Copy deployment script to EC2
           command: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ~/python_work/shop/deploy.sh ec2-user@13.51.174.31:/home/ec2-user/shop
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ~/pythonProject/shop/deploy.sh ec2-user@13.51.174.31:/home/ec2-user/shop
       - run:
           name: Run deployment script on EC2
           command: |

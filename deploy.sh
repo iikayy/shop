@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Activate the virtual environment
+# shellcheck disable=SC1090
+source ~/pythonProject/shop/venv/bin/activate
 
 # Update and install dependencies
 sudo apt-get update
@@ -14,6 +17,11 @@ git pull
 
 # Install dependencies
 pip install -r requirements.txt
+
+
+# Start the application (example for a Flask app)
+export FLASK_APP=main.py
+flask run --host=0.0.0.0
 
 # Apply database migrations (if any)
 # python manage.py migrate  # Uncomment if using Django
