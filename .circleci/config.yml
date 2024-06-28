@@ -37,11 +37,11 @@ jobs:
       - run:
           name: Copy deployment script to EC2
           command: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ./deploy.sh ec2-user@13.51.174.31:/home/ec2-user/shop/deploy.sh
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ./deploy.sh ec2-user@13.51.174.31: home/ec2-user/shop
       - run:
           name: Run deployment script on EC2
           command: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.51.174.31 'bash /home/ec2-user/shop/deploy.sh'
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@13.51.174.31 'bash home/ec2-user/shop'
 
 workflows:
   version: 2
