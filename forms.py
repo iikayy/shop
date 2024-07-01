@@ -23,7 +23,7 @@ class UpdateMenu(BaseModel):
 
 class UpdateOrder(BaseModel):
     food_name: Optional[str]
-    quantity_ordered: int | None
+    quantity_ordered: Optional[int]
 
 
 class User(BaseModel):
