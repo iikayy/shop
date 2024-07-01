@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+from typing import Optional
 
 
 class MenuItem(BaseModel):
@@ -14,10 +15,10 @@ class OrderItem(BaseModel):
 
 
 class UpdateMenu(BaseModel):
-    food_name: str | None
-    food_quantity: int | None
-    food_price: float | None
-    food_img_url: str | None
+    food_name: Optional[str]
+    food_quantity: Optional[int]
+    food_price: Optional[float]
+    food_img_url: Optional[str]
 
 
 class UpdateOrder(BaseModel):
@@ -47,4 +48,4 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    username: str | None
+    username: Optional[str]
